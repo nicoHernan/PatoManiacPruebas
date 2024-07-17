@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PatoManiacParaPruebas</string>
+    <string name="button_home">next screen</string>
+    <string name="button_back">back</string>
+    <string name="home_screen">home screen</string>
+    <string name="athlete_screen">athlete screen</string>
+    <string name="nutrition_screen">nutrition screen</string>
+
+</resources>
