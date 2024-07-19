@@ -35,4 +35,8 @@ class RepositoryApp @Inject constructor(
     fun insertAllAthletesDBLocal(listOfAthletes: List<AthletesEntity>) {
         appDAO.insertAllAthletes(listOfAthletes)
     }
+
+    fun insertAthleteDBLocal(athleteInfo: AthletesEntity) {
+        appDAO.insertAthletes(athleteInfo)
+    }
 }

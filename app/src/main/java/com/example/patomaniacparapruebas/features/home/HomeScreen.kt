@@ -49,7 +49,8 @@ fun HomeScreen(
             OutlinedTextField(
                 value = "inputNameUser",    //Todo -> pasar nameUser a la AthleteScreen
                 onValueChange = {text ->
-                    inputNameUser = text },
+                    inputNameUser = text
+                },
                 label = { Text(text = "input name user") },
                 enabled = enabled,
                 singleLine = true

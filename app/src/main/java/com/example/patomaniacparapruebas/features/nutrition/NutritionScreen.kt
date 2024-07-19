@@ -36,6 +36,7 @@ fun NutritionScreen(
     Scaffold(
         modifier= Modifier
             .fillMaxSize()
+            .padding(30.dp)
     ) { innerPadding ->
             Column(
                 modifier = Modifier
@@ -62,34 +63,34 @@ fun NutritionItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(10.dp)
     ) {
         Column(
-            verticalArrangement = Arrangement.Bottom,
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-
             Text(
-                text = itemNutrition.title,
+                text = itemNutrition.titleRecipesByNutrients,
                 fontSize = 15.sp,
                 fontStyle = FontStyle.Normal
             )
             AsyncImage(
-                model = itemNutrition.image,
+                model = itemNutrition.imageRecipesByNutrients,
                 contentDescription = null
             )
             Text(
-                text = itemNutrition.carbs,
+                text = itemNutrition.carbsRecipesByNutrients,
                 fontSize = 15.sp,
                 fontStyle = FontStyle.Normal
             )
             Text(
-                text = itemNutrition.protein,
+                text = itemNutrition.proteinRecipesByNutrients,
                 fontSize = 15.sp,
                 fontStyle = FontStyle.Normal
             )
             Text(
-                text = itemNutrition.calories.toString(),
+                text = itemNutrition.caloriesRecipesByNutrients.toString(),
                 fontSize = 15.sp,
                 fontStyle = FontStyle.Normal
             )
@@ -104,7 +105,7 @@ fun NutritionPreview() {
         RecipesByNutrientsDTO(
             1,
             "nutrition1",
-            "https://img.spoonacular.com/recipes/634927-312x231.jpg",   //Todo-> no se ve img en Preview
+            "https://img.spoonacular.com/recipes/658004-312x231.jpg",   //Todo-> no se ve img en Preview
             "",
             20,
             "50",

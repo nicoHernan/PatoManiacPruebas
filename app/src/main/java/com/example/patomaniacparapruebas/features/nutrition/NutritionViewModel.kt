@@ -23,40 +23,40 @@ repositoryApp: RepositoryApp
     val nutritionUiState: StateFlow<NutritionUiState> = _nutritionUiState
 
     init {
-        viewModelScope.launch {
+       viewModelScope.launch {
             withContext(Dispatchers.IO) {
-
                 if (repositoryApp.getAllRecipesByNutrientsDBLocal().isEmpty()) {
                     val listResponse = repositoryApp.getRecipesByNutrientsDTOResponse()
-                    repositoryApp.insertAllRecipesByNutrientsDBLocal(
-
-                        listResponse?.map { recipesByNutrientsDTO ->     //devuelve una lista una vez transformada la collección original
-                            NutritionEntity(
-                                recipesByNutrientsDTO.id,
-                                recipesByNutrientsDTO.title,
-                                recipesByNutrientsDTO.image,
-                                recipesByNutrientsDTO.imageType,
-                                recipesByNutrientsDTO.calories,
-                                recipesByNutrientsDTO.protein,
-                                recipesByNutrientsDTO.fat,
-                                recipesByNutrientsDTO.carbs
-                            )} !!
-                    )
+                    listResponse?.map { recipesByNutrientsDTO ->     //devuelve una lista una vez transformada la collección original
+                        NutritionEntity(
+                            recipesByNutrientsDTO.idRecipesByNutrients,
+                            recipesByNutrientsDTO.titleRecipesByNutrients,
+                            recipesByNutrientsDTO.imageRecipesByNutrients,
+                            recipesByNutrientsDTO.imageType,
+                            recipesByNutrientsDTO.caloriesRecipesByNutrients,
+                            recipesByNutrientsDTO.proteinRecipesByNutrients,
+                            recipesByNutrientsDTO.fat,
+                            recipesByNutrientsDTO.carbsRecipesByNutrients
+                        )}?.let {
+                        repositoryApp.insertAllRecipesByNutrientsDBLocal(
+                            it
+                        )
+                    }
                     _nutritionUiState.update {
-                        _nutritionUiState.value.copy(listRecipesByNutrientsDTO = listResponse)
+                        _nutritionUiState.value.copy(listRecipesByNutrientsDTO = listResponse ?: ArrayList())
                     }
 
                 } else {
                     val nutritionEntity = repositoryApp.getAllRecipesByNutrientsDBLocal().map { nutritionEntity ->
                             RecipesByNutrientsDTO(
-                                id = nutritionEntity.id,
-                                title = nutritionEntity.title,
-                                image = nutritionEntity.image,
+                                idRecipesByNutrients = nutritionEntity.id,
+                                titleRecipesByNutrients = nutritionEntity.title,
+                                imageRecipesByNutrients = nutritionEntity.image,
                                 imageType = "",
-                                calories = nutritionEntity.calories,
-                                protein = nutritionEntity.protein,
+                                caloriesRecipesByNutrients = nutritionEntity.calories,
+                                proteinRecipesByNutrients = nutritionEntity.protein,
                                 fat = "",
-                                carbs = nutritionEntity.carbs
+                                carbsRecipesByNutrients = nutritionEntity.carbs
                             )
                         } as ArrayList<RecipesByNutrientsDTO>
                     _nutritionUiState.update {

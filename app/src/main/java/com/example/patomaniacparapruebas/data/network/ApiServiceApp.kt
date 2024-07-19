@@ -9,6 +9,8 @@ interface ApiServiceApp {
 
     @GET("recipes/findByNutrients")
     suspend fun getRecipesByNutrients(
-        @Query("apiKey") apiKey: String = "e488a2c27dc24634b4555faf6769998c"
+        @Query("apiKey") apiKey: String = "907cc663bcbd49b2a74dcc2010304251",
+        @Query("minCarbs") minCarbs: String = "25",
+        @Query("maxCarbs") maxCarbs: String = "100"
     ): Response<ArrayList <RecipesByNutrientsDTO> >
 }

@@ -3,6 +3,7 @@ package com.example.patomaniacparapruebas.navigation
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -32,7 +33,7 @@ enum class NavigationScreen (@StringRes val title:Int){
     Nutrition(title = R.string.nutrition_screen)
 }
 
-@OptIn(ExperimentalMaterial3Api::class) //Todo-> es obligatorio? si lo quito TopAppBar muestra error
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationAppBar(
     modifier: Modifier = Modifier,
@@ -44,11 +45,10 @@ fun NavigationAppBar(
         modifier = modifier,
         title = { Text(stringResource(currentScreen.title) )},
         navigationIcon = {
-
             if(navigateBack){
                 IconButton(onClick = navigateUp) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack ,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.button_back)
                     )
                 }
@@ -71,49 +71,45 @@ fun AppNavigation(
     Scaffold(
         topBar = {
             NavigationAppBar(
-
                 currentScreen = currentScreen,
-                navigateBack = navController.previousBackStackEntry != null,    //Todo -> que hace previousBackStackEntry ?
+                navigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() }
             )
         }
     ) { innerPadding ->
-
-
         NavHost(
             modifier = Modifier
                 .padding(innerPadding),
             navController = navController,
-            startDestination = AppScreens.HomeScreen.route
+            startDestination = NavigationScreen.Home.name
         )
         {
-            composable(route = AppScreens.HomeScreen.route) {
+            composable(route = NavigationScreen.Home.name) {
                 HomeScreen(
                     modifier = modifier,
                     navController = navController,
                     goToAthleteDetail = {
-                        navController.navigate(AppScreens.AthleteScreen.route)
+                        navController.navigate(NavigationScreen.Athlete.name)
                     }
                 )
             }
-            composable(route = AppScreens.AthleteScreen.route) {
+            composable(route = NavigationScreen.Athlete.name) {
                 AthleteScreen(
                     modifier = modifier,
                     navController = navController,
                     enabled = true,
-                    onValueChange = {},
-                    //athleteViewModel = hiltViewModel(),
-                    athleteDetails = AthleteDetails()
-                    //goToNutrition     Todo -> rompe al navegar
+                    onNavigate = {
+                        navController.navigate(NavigationScreen.Nutrition.name)
+                    }
                 )
             }
-            composable(route = AppScreens.NutritionScreen.route) { backStackEntry ->
-                val id = backStackEntry.arguments?.getString("id")
+            composable(route = NavigationScreen.Nutrition.name) { backStackEntry ->
+
                 NutritionScreen(
                     modifier = Modifier,
                     navController = navController,
                     nutritionViewModel = hiltViewModel(),
-                    id = id
+                    id = "1"
                 )
             }
         }

@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AthleteViewModel @Inject constructor (
-    repositoryApp: RepositoryApp
+   private val repositoryApp: RepositoryApp
 ): ViewModel() {
     private val _athleteUiState = MutableStateFlow(AthleteUiState() )
     val athleteUiState:StateFlow <AthleteUiState> = _athleteUiState
@@ -23,7 +23,6 @@ class AthleteViewModel @Inject constructor (
     init {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-
                 if (repositoryApp.getAllAthletesDBLocal().isEmpty()) {
                     val newListOfAthletes = repositoryApp.getAthletes()
                     repositoryApp.insertAllAthletesDBLocal(
@@ -53,6 +52,37 @@ class AthleteViewModel @Inject constructor (
                         _athleteUiState.value.copy(listAthleteDetails = athletesEntity)
                     }
                 }
+            }
+        }
+    }
+
+    fun onValueChangeName(value: String) {
+        _athleteUiState.update {
+            _athleteUiState.value.copy(nameAthlete = value)
+        }
+    }
+
+    fun onValueChangeHeight(value: String) {
+        _athleteUiState.update {
+            _athleteUiState.value.copy(heightAthlete = value)
+        }
+    }
+
+    fun onValueChangeWeight(value: String) {
+        _athleteUiState.update {
+            _athleteUiState.value.copy(weightAthlete = value)
+        }
+    }
+
+    fun saveAthlete() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val athleteInfo = AthletesEntity(
+                    name = _athleteUiState.value.nameAthlete,
+                    weight = _athleteUiState.value.weightAthlete.toDouble(),
+                    height = _athleteUiState.value.heightAthlete.toDouble()
+                )
+                repositoryApp.insertAthleteDBLocal(athleteInfo)
             }
         }
     }
