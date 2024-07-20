@@ -37,9 +37,10 @@ repositoryApp: RepositoryApp
                             recipesByNutrientsDTO.proteinRecipesByNutrients,
                             recipesByNutrientsDTO.fat,
                             recipesByNutrientsDTO.carbsRecipesByNutrients
-                        )}?.let {
+                        )}?.let {nutritionEntity->
+
                         repositoryApp.insertAllRecipesByNutrientsDBLocal(
-                            it
+                            nutritionEntity
                         )
                     }
                     _nutritionUiState.update {

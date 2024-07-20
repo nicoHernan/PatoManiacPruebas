@@ -16,7 +16,7 @@ class RepositoryApp @Inject constructor(
         return apiServiceApp.getRecipesByNutrients().body()
     }
     suspend fun getAthletes(): ArrayList<AthleteDetails> {
-        return arrayListOf()
+        return arrayListOf()                                //no es necesario que las funciones de la db sean suspend
     }
 
 
@@ -27,6 +27,7 @@ class RepositoryApp @Inject constructor(
     fun insertAllRecipesByNutrientsDBLocal(listRecipesByNutrientsDTO: List<NutritionEntity> ) {
         appDAO.insertAllNutrition(listRecipesByNutrientsDTO)
     }
+
 
     //DB Athletes
 

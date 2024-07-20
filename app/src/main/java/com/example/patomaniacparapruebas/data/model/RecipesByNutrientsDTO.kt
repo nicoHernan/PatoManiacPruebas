@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class RecipesByNutrientsDTO(
 
-    @SerializedName("id")
+    @SerializedName("id")           //debe ser el dto original a consumir
     val idRecipesByNutrients: Int,
     @SerializedName("title")
     val titleRecipesByNutrients: String,

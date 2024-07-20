@@ -9,7 +9,7 @@ import androidx.room.Query
 interface AppDAO {
 
     @Query("SELECT * FROM athletes")
-    fun getAllAthletes(): List<AthletesEntity>  //Todo -> podrían ser ArrayList ?
+    fun getAllAthletes(): List<AthletesEntity>          //no es ArrayList porque Room no lo permite
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllAthletes(listAthletes: List<AthletesEntity>)

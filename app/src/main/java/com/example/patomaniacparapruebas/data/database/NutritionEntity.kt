@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "nutrition")
 data class NutritionEntity(
     @PrimaryKey
-    @ColumnInfo(name = "idRecipesByNutrients")
+    @ColumnInfo(name = "idRecipesByNutrients")      //name que aparece en la tabla, puede modificarse
     val id: Int,
     @ColumnInfo(name = "titleRecipesByNutrients")
     val title: String,
